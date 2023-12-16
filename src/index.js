@@ -3,7 +3,7 @@ import Notiflix, { Loading } from "notiflix";
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 
-import { fetchBreeds, fetchCatByBreed } from "./cat-api";
+import { fetchBreeds, fetchCatByBreed } from "./js/cat-api";
 
 const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loading");
@@ -11,7 +11,10 @@ const catInfoDiv = document.querySelector(".cat-info");
 const errorDiv = document.querySelector(".error");
 
 const slim = new SlimSelect({
-    select: breedSelect,
+  select: breedSelect,
+  settings: {
+    placeholderText: 'Custom Placeholder Text',
+  }
 });
 
 loader.style.display = "none";
