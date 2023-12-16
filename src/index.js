@@ -12,9 +12,7 @@ const errorDiv = document.querySelector(".error");
 
 const slim = new SlimSelect({
   select: breedSelect,
-  settings: {
-    placeholderText: 'Custom Placeholder Text',
-  }
+  data: [],
 });
 
 loader.style.display = "none";
