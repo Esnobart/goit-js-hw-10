@@ -12,7 +12,6 @@ const errorDiv = document.querySelector(".error");
 
 const slim = new SlimSelect({
   select: breedSelect,
-  data: [],
 });
 
 loader.style.display = "none";
