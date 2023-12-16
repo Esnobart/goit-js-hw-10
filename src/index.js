@@ -1,5 +1,5 @@
 import axios from "axios";
-import Notiflix, { Loading } from "notiflix";
+import Notiflix from "notiflix";
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 
@@ -12,6 +12,9 @@ const errorDiv = document.querySelector(".error");
 
 const slim = new SlimSelect({
   select: breedSelect,
+  settings: {
+    placeholderText: 'Custom Placeholder Text',
+  }
 });
 
 loader.style.display = "none";
@@ -21,20 +24,21 @@ fetchBreeds()
     updateBreedSelector(breedSelect, breeds);
   })
   .catch((error) => {
-      Notiflix.Report.failure('Error!', 'Something go wrong. Please, try again.', 'OK');
+    Notiflix.Report.failure('Error!', 'Something go wrong. Please, try again.', 'OK');
   });
 
 function updateBreedSelector(select, breeds) {
-    select.innerHTML = "";
-    slim.setData(breeds.map(breed => ({ text: breed.name, value: breed.id })));
+  select.innerHTML = "";
+  slim.setData(breeds.map(breed => ({ text: breed.name, value: breed.id })));
 }
 
 breedSelect.addEventListener("change", () => {
-    const selectedBreedId = breedSelect.value;
-    loader.style.display = "block";
-    catInfoDiv.innerHTML = "";
+  const selectedBreedId = breedSelect.value;
+  loader.style.display = "block";
+  catInfoDiv.innerHTML = "";
+  errorDiv.style.display = "none";
 
-    fetchCatByBreed(selectedBreedId)
+  fetchCatByBreed(selectedBreedId)
     .then((catInfo) => {
       updateCatInfo(catInfo);
       loader.style.display = "none";
