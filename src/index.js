@@ -1,4 +1,3 @@
-import axios from "axios";
 import Notiflix from "notiflix";
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
@@ -9,10 +8,6 @@ const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loading");
 const catInfoDiv = document.querySelector(".cat-info");
 const errorDiv = document.querySelector(".error");
-
-const slim = new SlimSelect({
-  select: breedSelect,
-});
 
 loader.style.display = "none";
 
@@ -25,18 +20,28 @@ fetchBreeds()
   });
 
 function updateBreedSelector(select, breeds) {
+  breeds.unshift({ id: '0', name: 'Choose a cat'})
+
+
   select.innerHTML = "";
-  slim.setData(breeds.map(breed => ({ text: breed.name, value: breed.id })));
+  breedSelect.innerHTML = breeds.map(breed => (`<option value="${breed.id}">${breed.name}</option>`));
+
+  new SlimSelect({
+    select: breedSelect,
+  });
 }
 
 breedSelect.addEventListener("change", () => {
+
   const selectedBreedId = breedSelect.value;
+  console.log(selectedBreedId);
   loader.style.display = "block";
   catInfoDiv.innerHTML = "";
   errorDiv.style.display = "none";
 
   fetchCatByBreed(selectedBreedId)
     .then((catInfo) => {
+     
       updateCatInfo(catInfo);
       loader.style.display = "none";
       errorDiv.style.display = "none";
